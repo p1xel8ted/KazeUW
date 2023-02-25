@@ -4,6 +4,8 @@
 
 ## Features
 - Removes pillar boxing when using ultrawide resolutions.
+- Skips developer/publisher logos.
+- Corrects certain UI elements where possible for UW.
 
 ## Note
 - Doesn't correct certain elements such as loading screens etc. Game play is fine.
