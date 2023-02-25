@@ -25,6 +25,13 @@ public static class Patches
     {
         __instance._logosAnimation = string.Empty;
     }
+    
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(GameplayManager), nameof(GameplayManager.ShowCutsceneBars))]
+    public static bool GameplayManager_ShowCutsceneBars()
+    {
+        return false;
+    }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(PixelPerfectZoomController), nameof(PixelPerfectZoomController.Update))]
@@ -33,4 +40,14 @@ public static class Patches
         __instance._camera.cropFrameX = false;
         __instance._camera.cropFrameY = false;
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(LetterboxCamera), nameof(LetterboxCamera.Awake))]
+    [HarmonyPatch(typeof(LetterboxCamera), nameof(LetterboxCamera.Update))]
+    public static void LetterboxCamera_Patches(ref LetterboxCamera __instance)
+    {
+        __instance._camera.pixelRect = new Rect(0f, 0f, Display.main.systemWidth, Display.main.systemHeight);
+        __instance._camera.aspect = (float) Display.main.systemWidth / (float) Display.main.systemHeight;
+    }
+    
 }
